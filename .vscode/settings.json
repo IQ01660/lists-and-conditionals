@@ -3,5 +3,9 @@
         "activityBar.background": "#0B1296",
         "titleBar.activeBackground": "#1019D2",
         "titleBar.activeForeground": "#FBFBFF"
+    },
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
     }
+
 }

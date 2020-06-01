@@ -1,21 +1,70 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import Validator from './Validation/Validation.js';
+import Char from './Char/Char.js';
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			inputString: '',
+		};
+	}
+
+	inputChangeHandler(event) {
+		this.setState({
+			inputString: event.target.value,
+        });
+    }
+    
+    deleteChar(idx) {
+        this.setState((state, props) => {
+            const prevInputString = state.inputString;
+            let updatedInputString = "";
+
+            for(let i = 0; i < prevInputString.length; i++)
+            {
+                if (i !== idx)
+                {
+                    updatedInputString += prevInputString[i];
+                }
+            }
+
+            return {
+                inputString: updatedInputString
+            };
+        });
+    }
+
+    getCharList(textMsg) {
+        const charList = [];
+        
+        for(let i = 0; i < textMsg.length; i++)
+        {
+            charList.push(
+                <Char click={() => this.deleteChar(i)} charElement={textMsg[i]} />
+            );
+        }
+        
+        return charList;
+    }
+
+	render() {
+		return (
+			<div className="App">
+				<input
+					type="text"
+					onChange={(event) => this.inputChangeHandler(event)}
+					value={this.state.inputString}
+				/>
+                <p>{this.state.inputString.length}</p>
+                <Validator msgLength={this.state.inputString.length}/>
+                <br/>
+                {this.getCharList(this.state.inputString)}
+			</div>
+		);
+	}
 }
 
 export default App;
