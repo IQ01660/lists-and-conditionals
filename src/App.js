@@ -43,7 +43,7 @@ class App extends Component {
         for(let i = 0; i < textMsg.length; i++)
         {
             charList.push(
-                <Char click={() => this.deleteChar(i)} charElement={textMsg[i]} />
+                <Char click={() => this.deleteChar(i)} key={i} charElement={textMsg[i]} />
             );
         }
         
